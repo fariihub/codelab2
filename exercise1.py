@@ -1,18 +1,6 @@
-# =====================================================
-# Project: 01 - Maths Quiz Application
-# Author: Farwa Batool
-# Module: CodeLab II – Programming Skills Portfolio
-# Date: 27th November 2025
-# =====================================================
-# References:
-# - ChatGPT (Prompt: “Create a Python GUI Maths Quiz using OOP and Tkinter”)
-# - Python Documentation: https://docs.python.org/3/library/tkinter.html
-# =====================================================
-
 import tkinter as tk
 from tkinter import messagebox
 import random
-
 
 class MathsQuiz:
     """
@@ -26,14 +14,12 @@ class MathsQuiz:
         self.root.title("Maths Quiz Application")
         self.root.geometry("400x300")
         self.root.config(bg="#20232a")
-
-        # Quiz state
+    
         self.score = 0
         self.question_count = 0
         self.current_question = ""
         self.correct_answer = 0
 
-        # GUI components
         self.title_label = tk.Label(
             root, text="🧮 Maths Quiz", font=("Arial", 18, "bold"), fg="#61dafb", bg="#20232a"
         )
@@ -70,8 +56,6 @@ class MathsQuiz:
         num1 = random.randint(1, 10)
         num2 = random.randint(1, 10)
         operator = random.choice(operators)
-
-        # Avoid division by zero and keep integer division simple
         if operator == '/':
             num1 = num1 * num2
 
@@ -94,7 +78,6 @@ class MathsQuiz:
             self.question_count += 1
             self.score_label.config(text=f"Score: {self.score}")
 
-            # Ask next question or end quiz
             if self.question_count < 5:
                 self.next_question()
             else:
@@ -107,12 +90,8 @@ class MathsQuiz:
         except ValueError:
             messagebox.showwarning("Invalid Input", "Please enter a numeric answer.")
 
-
-# =====================================================
-# Main Program Execution
-# =====================================================
-
 if __name__ == "__main__":
     window = tk.Tk()
     app = MathsQuiz(window)
     window.mainloop()
+
