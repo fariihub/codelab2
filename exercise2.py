@@ -1,7 +1,6 @@
 import tkinter as tk
 import random
 
-# Load jokes from file
 def load_jokes():
     with open("randomJokes.txt", "r") as file:
         jokes = file.readlines()
@@ -9,7 +8,6 @@ def load_jokes():
 
 jokes = load_jokes()
 
-# Select a random joke
 def select_joke():
     global current_setup, current_punchline
     joke = random.choice(jokes)
@@ -29,7 +27,6 @@ def show_punchline():
 def quit_app():
     root.destroy()
 
-# GUI Window
 root = tk.Tk()
 root.title("Alexa Joke Assistant")
 root.geometry("450x300")
@@ -57,3 +54,4 @@ quit_button = tk.Button(root, text="Quit", command=quit_app, width=25, bg="#FF99
 quit_button.pack(pady=10)
 
 root.mainloop()
+
