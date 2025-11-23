@@ -1,21 +1,7 @@
-# =====================================================
-# Project: Bath Spa University BSc Cybersecurity - Student Manager
-# Author: Farwa Batool
-# Module: CodeLab II – Programming Skills Portfolio
-# =====================================================
-# References:
-# - ChatGPT (Prompt: Create Python Tkinter Student Manager)
-# - Python Docs: https://docs.python.org/3/library/tkinter.html
-# =====================================================
-
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 
 FILE_NAME = "studentMarks.txt"
-
-# ----------------------------
-# Helper Functions
-# ----------------------------
 
 def get_grade(percentage):
     if percentage >= 70:
@@ -35,7 +21,7 @@ def load_students():
     try:
         with open(FILE_NAME, "r") as f:
             lines = f.readlines()
-            for line in lines[1:]:  # skip first line (number of students)
+            for line in lines[1:]:
                 line = line.strip()
                 if not line:
                     continue
@@ -83,10 +69,6 @@ def display_students(students):
         avg_percentage = round(sum(s['Percentage'] for s in students)/len(students), 2)
         output += f"Number of Students: {len(students)}\nAverage Percentage: {avg_percentage}%\n"
     return output
-
-# ----------------------------
-# GUI Functions
-# ----------------------------
 
 def view_all():
     students = load_students()
@@ -177,10 +159,6 @@ def sort_students():
         return
     messagebox.showinfo("Sorted Students", display_students(students))
 
-# ----------------------------
-# GUI Setup
-# ----------------------------
-
 root = tk.Tk()
 root.title("Bath Spa University - Student Manager")
 root.geometry("500x300")
@@ -203,3 +181,4 @@ file_menu.add_separator()
 file_menu.add_command(label="Exit", command=root.destroy)
 
 root.mainloop()
+
