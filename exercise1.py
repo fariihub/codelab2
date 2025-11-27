@@ -363,11 +363,11 @@ class QuizGUI:
 
     def apply_theme(self, theme):
         """Apply simple dark/light theme."""
-        bg_dark = "#2a303f"
-        fg_dark = "#8B8049"
+        bg_dark = "#030E2E"
+        fg_dark = "#5DD9FF"
         accent = "#2a8bd6"
         bg_light = "#acacac"
-        fg_light = "#6200FF"
+        fg_light = "#4C00FF"
         accent_light = "#2a8bd6"
 
         if theme == "dark":
@@ -568,3 +568,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
