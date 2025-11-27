@@ -3,10 +3,6 @@ from tkinter import messagebox
 
 FILE_NAME = "studentMarks.txt"
 
-# =====================================================
-#               GRADE + MARK CALCULATIONS
-# =====================================================
-
 def get_grade(percentage: float) -> str:
     if percentage >= 70:
         return "A"
@@ -21,16 +17,11 @@ def get_grade(percentage: float) -> str:
 
 
 def calculate_marks(cw1, cw2, cw3, exam):
-    cw_total = cw1 + cw2 + cw3          # /60
-    overall = cw_total + exam           # /160
+    cw_total = cw1 + cw2 + cw3         
+    overall = cw_total + exam          
     percentage = round((overall / 160) * 100, 2)
     grade = get_grade(percentage)
     return cw_total, overall, percentage, grade
-
-
-# =====================================================
-#               FILE READ + WRITE
-# =====================================================
 
 def load_students():
     students = []
@@ -43,7 +34,6 @@ def load_students():
     if not lines:
         return []
 
-    # first line count
     try:
         int(lines[0])
         data_lines = lines[1:]
@@ -80,22 +70,15 @@ def save_students(students):
         for s in students:
             f.write(f"{s['id']},{s['name']},{s['cw1']},{s['cw2']},{s['cw3']},{s['exam']}\n")
 
-
-# =====================================================
-#                 SCROLLABLE OUTPUT WINDOW (FIXED)
-# =====================================================
-
 def show_scroll(title, text):
     win = tk.Toplevel()
     win.title(title)
     win.geometry("700x600")
     win.configure(bg="white")
 
-    # Main Frame
     frame = tk.Frame(win, bg="white")
     frame.pack(fill="both", expand=True)
 
-    # Text Widget
     text_widget = tk.Text(
         frame,
         font=("Segoe UI", 11),
@@ -106,13 +89,11 @@ def show_scroll(title, text):
     )
     text_widget.pack(side="left", fill="both", expand=True)
 
-    # Scrollbar
     scrollbar = tk.Scrollbar(frame, command=text_widget.yview)
     scrollbar.pack(side="right", fill="y")
 
     text_widget.configure(yscrollcommand=scrollbar.set)
 
-    # Insert text with color-coded grade tags
     for line in text.split("\n"):
         if "Grade: A" in line:
             text_widget.insert("end", line + "\n", "A")
@@ -127,27 +108,18 @@ def show_scroll(title, text):
         else:
             text_widget.insert("end", line + "\n")
 
-    # Color tags
     text_widget.tag_config("A", foreground="green")
     text_widget.tag_config("B", foreground="blue")
     text_widget.tag_config("C", foreground="goldenrod")
     text_widget.tag_config("D", foreground="orange")
     text_widget.tag_config("F", foreground="red")
 
-    # Disable editing
     text_widget.configure(state="disabled")
 
-    # Enable mouse wheel scrolling
     def on_mousewheel(event):
         text_widget.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
     win.bind_all("<MouseWheel>", on_mousewheel)
-
-
-
-# =====================================================
-#            FORMAT STUDENT TEXT
-# =====================================================
 
 def format_one(s):
     return (
@@ -174,11 +146,6 @@ def format_all(students):
     text += f"\nAverage Percentage: {avg}%"
 
     return text
-
-
-# =====================================================
-#            CUSTOM INPUT WINDOWS
-# =====================================================
 
 def input_window(title, fields):
     win = tk.Toplevel()
@@ -212,11 +179,6 @@ def input_window(title, fields):
 
     win.wait_window()
     return result
-
-
-# =====================================================
-#                 MENU FUNCTIONS
-# =====================================================
 
 def view_all():
     show_scroll("All Students", format_all(load_students()))
@@ -382,11 +344,6 @@ def update_student():
 
     messagebox.showerror("Error", "Student not found.")
 
-
-# =====================================================
-#               STATISTICS WINDOW
-# =====================================================
-
 def show_statistics():
     students = load_students()
     if not students:
@@ -397,20 +354,17 @@ def show_statistics():
     highest = max(students, key=lambda s: s["percentage"])
     lowest = min(students, key=lambda s: s["percentage"])
 
-    # Count grades
     grade_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "F": 0}
     for s in students:
         grade_counts[s["grade"]] += 1
 
-    # Scale bars so the largest = 20 '#'
     max_count = max(grade_counts.values()) if grade_counts else 1
 
     chart = ""
     for g in ["A", "B", "C", "D", "F"]:
         bar_length = int((grade_counts[g] / max_count) * 20) if max_count > 0 else 0
         chart += f"{g}: ({grade_counts[g]})\n"
-
-    # Final output text
+        
     text = (
         f"Total Students: {count}\n"
         f"Average Percentage: {avg}%\n"
@@ -420,12 +374,6 @@ def show_statistics():
     )
 
     show_scroll("Class Statistics", text)
-
-
-
-# =====================================================
-#                    MAIN UI
-# =====================================================
 
 root = tk.Tk()
 root.title("Student Manager – Exercise 3")
@@ -464,4 +412,5 @@ menu_btn("8. Update Student", update_student).pack(pady=5)
 menu_btn("9. Class Statistics", show_statistics).pack(pady=5)
 
 root.mainloop()
+
 
