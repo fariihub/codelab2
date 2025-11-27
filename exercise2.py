@@ -3,10 +3,6 @@ from tkinter import messagebox
 import random
 
 def load_jokes():
-    """
-    Load jokes from randomJokes.txt.
-    Each line must be: setup?Punchline
-    """
     try:
         with open("randomJokes.txt", "r", encoding="utf-8") as file:
             jokes = [line.strip() for line in file.readlines() if line.strip()]
@@ -27,14 +23,6 @@ def load_jokes():
     return valid_jokes
 
 class JokeApp:
-    """
-    Premium Tkinter joke assistant with:
-    - Gradient background
-    - Animated avatar
-    - Typing effect
-    - Clean layout
-    - Robust logic
-    """
 
     def __init__(self, root):
         self.root = root
@@ -71,6 +59,7 @@ class JokeApp:
         return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
     def build_ui(self):
+        # Alexa Avatar
         self.avatar = tk.Label(
             self.root,
             text="🤖",
@@ -90,7 +79,7 @@ class JokeApp:
             justify="center"
         )
         self.setup_label.place(x=30, y=140)
-
+        
         self.punchline_label = tk.Label(
             self.root,
             text="",
